@@ -1,0 +1,17 @@
+﻿body {
+    background-color: darkgray;
+    background-image: url("../Assets/images/background.jpg");
+}
+
+canvas {
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 10%;
+    background-color: white;
+}
+
+.game {
+    width: 80%;
+    margin: 0 auto;
+}

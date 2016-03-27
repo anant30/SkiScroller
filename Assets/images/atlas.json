@@ -1,0 +1,28 @@
+{
+
+"images": [
+    "atlas.png"
+],
+
+"frames": [
+    [2, 2, 226, 176, 0, 0, -1],
+    [230, 2, 150, 50, 0, 0, 0],
+    [230, 54, 150, 50, 0, 0, 0],
+    [230, 106, 62, 60, 0, 0, -1],
+    [294, 106, 61, 49, 0, -4, -10]
+],
+
+"animations": {
+    "cloud": [0],
+    "RestartButton": [1],
+    "StartButton": [2],
+    "island": [3],
+    "plane": [4]
+},
+
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:c02f62a9dfd1b63438781afd20de7e16:469f37f325e84d0880cee224a864eddc:cbce6b53f0f49e0bf15173c25c41f876$",
+        "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
+]
+
+}
