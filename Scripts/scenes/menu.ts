@@ -15,29 +15,29 @@ module scenes {
         
         // Start Method
         public start(): void {
+            
+            // adding background image 
+            this._backgroundImage = new createjs.Bitmap(assets.getResult("MenuBackground"));
+            this.addChild(this._backgroundImage);
+            
             //Add Menu Label
             this._menuLabel = new objects.Label(
-                "MENU SCENE", "60px Consolas",
+                "Ski Scroller", "60px Comic sans",
                 "#000000",
-                config.Screen.CENTER_X, config.Screen.CENTER_Y, true);
+                config.Screen.CENTER_X + 70, config.Screen.CENTER_Y - 100, true);
             this.addChild(this._menuLabel);
             
             
             // add the Start button to the MENU scene
             this._startButton = new objects.Button(
                 "StartButton",
-                config.Screen.CENTER_X,
+                config.Screen.CENTER_X + 150,
                 config.Screen.CENTER_Y + 180, true);
             this.addChild(this._startButton);
             
             // Start Button event listener
             this._startButton.on("click", this._startButtonClick, this);
-            
-            // adding background image 
-            // this._backgroundImage = new createjs.Bitmap(assets.getResult("MenuBackground"));
-            // this.addChild(this._backgroundImage);
-            
-            
+
             
             // add this scene to the global stage container
             stage.addChild(this);
