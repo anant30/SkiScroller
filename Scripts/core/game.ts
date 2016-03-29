@@ -19,10 +19,10 @@ var assetData:objects.Asset[] = [
     {id: "StartButton", src:"../../Assets/images/StartButton.png"},
     {id: "RestartButton", src:"../../Assets/images/RestartButton.png"},
     {id: "BackButton", src:"../../Assets/images/BackButton.png"},
-    {id: "ocean", src:"../../Assets/images/ocean.gif"},
-    {id: "plane", src:"../../Assets/images/plane.png"},
-    {id: "island", src:"../../Assets/images/island.png"},
-    {id: "cloud", src:"../../Assets/images/cloud.png"},
+    {id: "snow", src:"../../Assets/images/snow.gif"},
+    {id: "player", src:"../../Assets/images/player.png"},
+    {id: "pills", src:"../../Assets/images/pills.png"},
+    {id: "trees", src:"../../Assets/images/trees.png"},
     {id: "MenuBackground", src:"../../Assets/images/MenuBackground.png"},
 ];
 

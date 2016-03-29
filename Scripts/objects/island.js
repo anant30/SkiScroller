@@ -6,37 +6,37 @@ var __extends = (this && this.__extends) || function (d, b) {
 var objects;
 (function (objects) {
     // ISLAND CLASS ++++++++++++++++++++++++++++++++++++
-    var Island = (function (_super) {
-        __extends(Island, _super);
+    var Pills = (function (_super) {
+        __extends(Pills, _super);
         // PRIVATE INSTANCE VARIABLES +++++++++++++++++
         // CONSTRUCTOR METHOD +++++++++++++++++++++++++
-        function Island() {
-            _super.call(this, "island");
-            this._speed.y = 5; //island speed
+        function Pills() {
+            _super.call(this, "pills");
+            this._speed.y = 5; //pills speed
             this._reset(this._topBounds);
-            this.name = "island";
+            this.name = "pills";
         }
         // PRIVATE METHODS ++++++++++++++++++++++++++++
-        Island.prototype._checkBounds = function (value) {
-            // check to see if the top of the island 
+        Pills.prototype._checkBounds = function (value) {
+            // check to see if the top of the pills 
             // is outside the viewport         
             if (this.y >= value) {
                 this._reset(this._topBounds);
             }
         };
         // reset the ocean offscreen
-        Island.prototype._reset = function (value) {
+        Pills.prototype._reset = function (value) {
             this.y = value;
             this.x = Math.floor(Math.random() * this._rightBounds) + this._leftBounds;
         };
         // PUBLIC METHODS ++++++++++++++++++++++++++++++
-        Island.prototype.update = function () {
-            // scroll the island 5 px per frame
+        Pills.prototype.update = function () {
+            // scroll the pills 5 px per frame
             this.y += this._speed.y;
             this._checkBounds(this._bottomBounds);
         };
-        return Island;
+        return Pills;
     })(objects.GameObject);
-    objects.Island = Island;
+    objects.Pills = Pills;
 })(objects || (objects = {}));
 //# sourceMappingURL=island.js.map

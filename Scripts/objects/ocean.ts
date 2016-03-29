@@ -1,19 +1,19 @@
 module objects {
     // OCEAN CLASS ++++++++++++++++++++++++++++++++++++
-    export class Ocean extends objects.GameObject {
+    export class Snow extends objects.GameObject {
         // PRIVATE INSTANCE VARIABLES +++++++++++++++++
         
         // CONSTRUCTOR METHOD +++++++++++++++++++++++++
         constructor() {
-            super("ocean");
+            super("snow");
             
-           this._speed.y = 5; //ocean speed
+           this._speed.y = 5; //snow speed
            this._reset(480);
         }
         
         // PRIVATE METHODS ++++++++++++++++++++++++++++
         protected _checkBounds(value:number):void {
-            // check to see if the top of the ocean 
+            // check to see if the top of the snow 
             // is met the top of the scene
             
             if(this.y >= value) {
@@ -21,7 +21,7 @@ module objects {
             }
         }
         
-        // reset the ocean offscreen
+        // reset the snow offscreen
         protected _reset(value:number):void {
             this.y = value;
         }
@@ -29,7 +29,7 @@ module objects {
         
         // PUBLIC METHODS ++++++++++++++++++++++++++++++
         public update():void {
-            // scroll the ocean 5 px per frame
+            // scroll the snow 5 px per frame
             this.y -= this._speed.y;
             this._checkBounds(0);
         }

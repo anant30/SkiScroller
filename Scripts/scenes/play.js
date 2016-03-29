@@ -15,23 +15,23 @@ var scenes;
         // PUBLIC METHODS +++++++++++++++++++++
         // Start Method
         Play.prototype.start = function () {
-            // Set Cloud Count
+            // Set Trees Count
             this._cloudCount = 3;
-            // Instantiate Cloud array
+            // Instantiate Trees array
             this._clouds = new Array();
-            // added ocean to the scene
-            this._ocean = new objects.Ocean();
+            // added snow to the scene
+            this._ocean = new objects.Snow();
             this.addChild(this._ocean);
-            // added island to the scene
-            this._island = new objects.Island();
+            // added pills to the scene
+            this._island = new objects.Pills();
             this.addChild(this._island);
             // added player to the scene
             this._player = new objects.Player();
             this.addChild(this._player);
             //added clouds to the scene
-            for (var cloud = 0; cloud < this._cloudCount; cloud++) {
-                this._clouds[cloud] = new objects.Cloud();
-                this.addChild(this._clouds[cloud]);
+            for (var trees = 0; trees < this._cloudCount; trees++) {
+                this._clouds[trees] = new objects.Trees();
+                this.addChild(this._clouds[trees]);
             }
             // added collision manager to the scene
             this._collision = new managers.Collision(this._player);
@@ -44,9 +44,9 @@ var scenes;
             this._ocean.update();
             this._island.update();
             this._player.update();
-            this._clouds.forEach(function (cloud) {
-                cloud.update();
-                _this._collision.check(cloud);
+            this._clouds.forEach(function (trees) {
+                trees.update();
+                _this._collision.check(trees);
             });
             this._collision.check(this._island);
         };

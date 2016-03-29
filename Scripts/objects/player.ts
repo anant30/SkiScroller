@@ -9,7 +9,7 @@ module objects {
         public width: number;
         public height: number;
         constructor() {
-            super(assets.getResult("plane"));
+            super(assets.getResult("player"));
 
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;

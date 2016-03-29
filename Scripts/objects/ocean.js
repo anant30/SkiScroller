@@ -6,35 +6,35 @@ var __extends = (this && this.__extends) || function (d, b) {
 var objects;
 (function (objects) {
     // OCEAN CLASS ++++++++++++++++++++++++++++++++++++
-    var Ocean = (function (_super) {
-        __extends(Ocean, _super);
+    var Snow = (function (_super) {
+        __extends(Snow, _super);
         // PRIVATE INSTANCE VARIABLES +++++++++++++++++
         // CONSTRUCTOR METHOD +++++++++++++++++++++++++
-        function Ocean() {
-            _super.call(this, "ocean");
-            this._speed.y = 5; //ocean speed
+        function Snow() {
+            _super.call(this, "snow");
+            this._speed.y = 5; //snow speed
             this._reset(480);
         }
         // PRIVATE METHODS ++++++++++++++++++++++++++++
-        Ocean.prototype._checkBounds = function (value) {
-            // check to see if the top of the ocean 
+        Snow.prototype._checkBounds = function (value) {
+            // check to see if the top of the snow 
             // is met the top of the scene
             if (this.y >= value) {
                 this._reset(480);
             }
         };
-        // reset the ocean offscreen
-        Ocean.prototype._reset = function (value) {
+        // reset the snow offscreen
+        Snow.prototype._reset = function (value) {
             this.y = value;
         };
         // PUBLIC METHODS ++++++++++++++++++++++++++++++
-        Ocean.prototype.update = function () {
-            // scroll the ocean 5 px per frame
+        Snow.prototype.update = function () {
+            // scroll the snow 5 px per frame
             this.y -= this._speed.y;
             this._checkBounds(0);
         };
-        return Ocean;
+        return Snow;
     })(objects.GameObject);
-    objects.Ocean = Ocean;
+    objects.Snow = Snow;
 })(objects || (objects = {}));
 //# sourceMappingURL=ocean.js.map

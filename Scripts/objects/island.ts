@@ -1,20 +1,20 @@
 module objects {
     // ISLAND CLASS ++++++++++++++++++++++++++++++++++++
-    export class Island extends objects.GameObject {
+    export class Pills extends objects.GameObject {
         // PRIVATE INSTANCE VARIABLES +++++++++++++++++
         
         // CONSTRUCTOR METHOD +++++++++++++++++++++++++
         constructor() {
-            super("island");
+            super("pills");
             
-           this._speed.y = 5; //island speed
+           this._speed.y = 5; //pills speed
            this._reset(this._topBounds);
-           this.name = "island";
+           this.name = "pills";
         }
         
         // PRIVATE METHODS ++++++++++++++++++++++++++++
         protected _checkBounds(value:number):void {
-            // check to see if the top of the island 
+            // check to see if the top of the pills 
             // is outside the viewport         
             if(this.y >= value) {
                 this._reset(this._topBounds);
@@ -30,7 +30,7 @@ module objects {
         
         // PUBLIC METHODS ++++++++++++++++++++++++++++++
         public update():void {
-            // scroll the island 5 px per frame
+            // scroll the pills 5 px per frame
             this.y += this._speed.y;
             this._checkBounds(this._bottomBounds);
         }
