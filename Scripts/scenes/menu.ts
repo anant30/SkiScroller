@@ -4,6 +4,7 @@ module scenes {
         //PRIVATE INSTANCE VARIABLES ++++++++++++
         private _menuLabel: objects.Label;
         private _startButton: objects.Button;
+        private _backgroundImage: createjs.Bitmap;
         
         // CONSTRUCTOR ++++++++++++++++++++++
         constructor() {
@@ -31,6 +32,11 @@ module scenes {
             
             // Start Button event listener
             this._startButton.on("click", this._startButtonClick, this);
+            
+            // adding background image 
+            // this._backgroundImage = new createjs.Bitmap(assets.getResult("MenuBackground"));
+            // this.addChild(this._backgroundImage);
+            
             
             
             // add this scene to the global stage container

@@ -34,7 +34,6 @@ module objects {
             }
         }
 
-
         // PUBLIC METHODS
         public update(): void {
             this.x = stage.mouseX;

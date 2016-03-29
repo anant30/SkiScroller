@@ -30,7 +30,7 @@ var objects;
         // PUBLIC METHODS ++++++++++++++++++++++++++++++
         Ocean.prototype.update = function () {
             // scroll the ocean 5 px per frame
-            this.y += this._speed.y;
+            this.y -= this._speed.y;
             this._checkBounds(0);
         };
         return Ocean;

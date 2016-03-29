@@ -30,7 +30,7 @@ module objects {
         // PUBLIC METHODS ++++++++++++++++++++++++++++++
         public update():void {
             // scroll the ocean 5 px per frame
-            this.y += this._speed.y;
+            this.y -= this._speed.y;
             this._checkBounds(0);
         }
     }

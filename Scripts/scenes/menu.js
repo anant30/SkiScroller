@@ -23,6 +23,9 @@ var scenes;
             this.addChild(this._startButton);
             // Start Button event listener
             this._startButton.on("click", this._startButtonClick, this);
+            // adding background image 
+            // this._backgroundImage = new createjs.Bitmap(assets.getResult("MenuBackground"));
+            // this.addChild(this._backgroundImage);
             // add this scene to the global stage container
             stage.addChild(this);
         };
