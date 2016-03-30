@@ -2,7 +2,10 @@ var managers;
 (function (managers) {
     // COLLISION MANAGER CLASS
     var Collision = (function () {
+        // CONSTRUCTOR ++++++++++++++++
         function Collision(player) {
+            this._points = 0;
+            this._carHealth = 100;
             this._player = player;
         }
         Collision.prototype.distance = function (startPoint, endPoint) {
@@ -21,9 +24,10 @@ var managers;
             /* check if the distance between the player and
               the other object is less than the minimum distance */
             if (this.distance(startPoint, endPoint) < minimumDistance) {
-                // check if it's an pills hit
+                // check if it's an energy pill
                 if (object.name === "pills") {
-                    console.log("Got energy pills!");
+                    // console.log("Collision with gas tank!");
+                    return true;
                 }
                 // check if it's a trees hit
                 if (object.name === "trees") {

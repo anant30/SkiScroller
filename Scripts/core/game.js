@@ -11,7 +11,6 @@ var menu;
 var play;
 var end;
 // MANAGERS
-var scoreboard;
 var assetData = [
     // Add your Assets here
     { id: "StartButton", src: "../../Assets/images/StartButton.png" },
@@ -22,6 +21,8 @@ var assetData = [
     { id: "pills", src: "../../Assets/images/pills.png" },
     { id: "trees", src: "../../Assets/images/trees.png" },
     { id: "MenuBackground", src: "../../Assets/images/MenuBackground.png" },
+    { id: "points", src: "../../Assets/images/points.png" },
+    { id: "car_health", src: "../../Assets/images/car_health.png" },
 ];
 function preload() {
     assets = new createjs.LoadQueue();
@@ -42,7 +43,6 @@ function init() {
     createjs.Ticker.on("tick", gameLoop, this);
     // sets up our stats counting workflow
     setupStats();
-    scoreboard = new managers.ScoreBoard();
     // set initial scene
     scene = config.Scene.MENU;
     changeScene();

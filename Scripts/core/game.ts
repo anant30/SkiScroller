@@ -15,7 +15,7 @@ var play: scenes.Play;
 var end: scenes.End;
 
 // MANAGERS
-var scoreboard:managers.ScoreBoard
+
 
 var assetData:objects.Asset[] = [
     // Add your Assets here
@@ -27,6 +27,8 @@ var assetData:objects.Asset[] = [
     {id: "pills", src:"../../Assets/images/pills.png"},
     {id: "trees", src:"../../Assets/images/trees.png"},
     {id: "MenuBackground", src:"../../Assets/images/MenuBackground.png"},
+    {id: "points", src:"../../Assets/images/points.png"},
+    {id: "car_health", src:"../../Assets/images/car_health.png"},
 ];
 
 function preload() {
@@ -55,7 +57,7 @@ function init(): void {
     // sets up our stats counting workflow
     setupStats(); 
     
-    scoreboard = new managers.ScoreBoard();
+
     
     // set initial scene
     scene = config.Scene.MENU;

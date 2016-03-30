@@ -1,8 +1,14 @@
 module managers {
     // COLLISION MANAGER CLASS
     export class Collision {
-        // PRIVATE INSTANCE VARIABLES
+        // PRIVATE INSTANCE VARIABLES +++++++++++++++++++++++
         private _player: objects.Player;
+        private _pointsLabel: objects.Label;
+        private _points = 0;
+        private _carHealthLabel: objects.Label;
+        private _carHealth = 100;
+        
+        // CONSTRUCTOR ++++++++++++++++
         constructor(player:objects.Player) {
             this._player = player;
         }
@@ -24,14 +30,14 @@ module managers {
             endPoint.x = object.centerX + object.x;
             endPoint.y = object.centerY + object.y;
             
-            
             /* check if the distance between the player and 
               the other object is less than the minimum distance */
             if(this.distance(startPoint, endPoint) < minimumDistance) {
                 
-                // check if it's an pills hit
+                // check if it's an energy pill
                 if(object.name === "pills") {
-                    console.log("Got energy pills!");
+                    // console.log("Collision with gas tank!");
+                    return true;
                 }
                 
                 // check if it's a trees hit

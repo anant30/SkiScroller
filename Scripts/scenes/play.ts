@@ -3,13 +3,21 @@ module scenes {
     export class Play extends objects.Scene {
         //PRIVATE INSTANCE VARIABLES ++++++++++++
         private _snow: objects.Snow;
+        private _pointsBox: createjs.Bitmap;
+        private _livesBox: createjs.Bitmap;
         private _pills: objects.Pills;
-        private _trees: objects.Trees[];
-        private _cloudCount: number;
+        private _carCount: number;
         private _player: objects.Player;
         private _collision: managers.Collision;
-        private _scoreLabel: objects.Label;
+        private _pointsLabel: objects.Label;
+        private _points: number;
         private _livesLabel: objects.Label;
+        private _lives: number;
+        private _gameoverImage: createjs.Bitmap;
+        private _finalPointsLabel: objects.Label;
+        private _restartPedal: createjs.Bitmap;
+        private _trees: objects.Trees[];
+
 
         // CONSTRUCTOR ++++++++++++++++++++++
         constructor() {
@@ -21,24 +29,16 @@ module scenes {
 
         // Start Method
         public start(): void {
-
-            //reset scoreboard
-            scoreboard.setLives(5);
-            scoreboard.setScore(0);
-            console.log(scoreboard.getLives());
-            console.log(scoreboard.getScore());
-
-            // Set Trees Count
-            this._cloudCount = 3;
-
-            // Instantiate Trees array
-            this._trees = new Array<objects.Trees>();
+            // Set trees Count, points, trees health
+            this._carCount = 2;
+            this._points = 0;
+            this._lives = 10;
 
             // added snow to the scene
             this._snow = new objects.Snow();
             this.addChild(this._snow);
 
-            // added pills to the scene
+            // added enery pills to the scene
             this._pills = new objects.Pills();
             this.addChild(this._pills);
 
@@ -46,18 +46,32 @@ module scenes {
             this._player = new objects.Player();
             this.addChild(this._player);
 
-            //added clouds to the scene
-            for (var trees: number = 0; trees < this._cloudCount; trees++) {
+            // Add trees
+            this._trees = new Array<objects.Trees>();
+            for (var trees: number = 0; trees < this._carCount; trees++) {
                 this._trees[trees] = new objects.Trees();
                 this.addChild(this._trees[trees]);
             }
 
-            // Score Label
-            this._scoreLabel = new objects.Label("Score: ", " 40px Consolas ", "#000000", config.Screen.CENTER_X - 250, config.Screen.CENTER_Y - 200, true);
-            this.addChild(this._scoreLabel);
 
-            // Lives Label
-            this._livesLabel = new objects.Label("Lives: ", " 40px Consolas ", "#000000", config.Screen.CENTER_X + 250, config.Screen.CENTER_Y + 200, true);
+
+
+            // Add Points label
+            this._pointsLabel = new objects.Label(
+                this._points.toString(),
+                "14px Consolas",
+                "#000000",
+                150, 50, false);
+            this._pointsLabel.textAlign = "right";
+            this.addChild(this._pointsLabel);
+
+            // Add Lives label
+            this._livesLabel = new objects.Label(
+                this._lives.toString(),
+                "14px Consolas",
+                "#000000",
+                450, 50, false);
+            this._livesLabel.textAlign = "right";
             this.addChild(this._livesLabel);
 
             // added collision manager to the scene
@@ -71,33 +85,102 @@ module scenes {
         public update(): void {
             this._snow.update();
             this._pills.update();
+
             this._player.update();
 
-            //update each trees
-            for (var trees = 0; trees < 3; trees++) {
-                this._trees[trees].update();
-                //this._collision.update(this._player, this._trees[trees]);
-               // this._collision.check();
+            // Check if the collision is with a Gas tank
+            if (this._collision.check(this._pills)) {
+                if (this._lives <= 1 || this._points >= 1000) {
+                    this.endOfGame();
+                }
+                else {
+                    // Play Points sound
+                    var audioFile = document.createElement("audio");
+                    audioFile.src = "../../Assets/audio/gastank_point.mp3";
+                    audioFile.play();
+                    // Increment points variable
+                    this._points++;
+                    // Update Points label
+                    this.removeChild(this._pointsLabel);
+                    this._pointsLabel = new objects.Label(
+                        this._points.toString(),
+                        "14px Consolas",
+                        "#000000",
+                        150, 50, false);
+                    this._pointsLabel.textAlign = "right";
+                    this.addChild(this._pointsLabel);
+                }
             }
 
-           // this._collision.update(this._player, this._pills);
-            this._updateScore();
+            // Check if the collision is with a red trees
+            this._trees.forEach(trees => {
+                trees.update();
+                if (this._collision.check(trees)) {
+                    if (this._lives <= 1) {
+                        this.endOfGame();
+                    }
+                    else {
+                        // Play trees crash sound
+                        var audioFile = document.createElement("audio");
+                        audioFile.src = "../../Assets/audio/car_crash.mp3";
+                        audioFile.play();
+                        // Decrement trees health variable
+                        this._lives--;
+                        // Update Car Health label
+                        this.removeChild(this._livesLabel);
+                        this._livesLabel = new objects.Label(
+                            this._lives.toString(),
+                            "14px Consolas",
+                            "#000000",
+                            450, 50, false);
+                        this._livesLabel.textAlign = "right";
+                        this.addChild(this._livesLabel);
+                    }
+                }
+            });
 
-            if (scoreboard.getLives() < 1) {
-              //  this._player.engineOff();
-                scene = config.Scene.END;
-                changeScene();
-            }
+
 
         }
 
-        private _updateScore(): void {
-            this._scoreLabel.text = "Score: " + scoreboard.getScore();
-            this._livesLabel.text = "Lives: " + scoreboard.getLives();
+        // PRIVATE METHODS +++++++++++++++++++++++++++
+
+        private endOfGame(): void {
+            // console.log("Game Over!");
+            this.removeChild(this._pointsLabel);
+            this.removeChild(this._livesLabel);
+
+            // add the gameover image
+            this._gameoverImage = new objects.Button("gameover", 0, 0, false);
+            this.addChild(this._gameoverImage);
+
+            // add the final score
+            this.removeChild(this._pointsLabel);
+            this._finalPointsLabel = new objects.Label(
+                this._points.toString(),
+                "40px Consolas",
+                "#000000",
+                350, 285, false);
+            this._finalPointsLabel.textAlign = "right";
+            this.addChild(this._finalPointsLabel);
+
+            // add the restart pedal image
+            this._restartPedal = new objects.Button("restart", 500, 300, false);
+            this.addChild(this._restartPedal);
+            // restart button listner
+            this._restartPedal.on("click", this._restartPedalClick, this);
         }
 
+        private _restartPedalClick(event: createjs.MouseEvent): void {
+            // Play Car Rev (restart) sound
+            var audioFile = document.createElement("audio");
+            audioFile.src = "../../Assets/audio/car_rev.mp3";
+            audioFile.play();
 
-        //EVENT HANDLERS ++++++++++++++++++++
+            // Reset to the PLAY Scene
+            scene = config.Scene.PLAY;
+            changeScene();
+        }
 
     }
 }

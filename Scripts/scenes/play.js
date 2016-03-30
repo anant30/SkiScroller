@@ -15,34 +15,32 @@ var scenes;
         // PUBLIC METHODS +++++++++++++++++++++
         // Start Method
         Play.prototype.start = function () {
-            //reset scoreboard
-            scoreboard.setLives(5);
-            scoreboard.setScore(0);
-            console.log(scoreboard.getLives());
-            console.log(scoreboard.getScore());
-            // Set Trees Count
-            this._cloudCount = 3;
-            // Instantiate Trees array
-            this._trees = new Array();
+            // Set trees Count, points, trees health
+            this._carCount = 2;
+            this._points = 0;
+            this._lives = 10;
             // added snow to the scene
             this._snow = new objects.Snow();
             this.addChild(this._snow);
-            // added pills to the scene
+            // added enery pills to the scene
             this._pills = new objects.Pills();
             this.addChild(this._pills);
             // added player to the scene
             this._player = new objects.Player();
             this.addChild(this._player);
-            //added clouds to the scene
-            for (var trees = 0; trees < this._cloudCount; trees++) {
+            // Add trees
+            this._trees = new Array();
+            for (var trees = 0; trees < this._carCount; trees++) {
                 this._trees[trees] = new objects.Trees();
                 this.addChild(this._trees[trees]);
             }
-            // Score Label
-            this._scoreLabel = new objects.Label("Score: ", " 40px Consolas ", "#000000", config.Screen.CENTER_X - 250, config.Screen.CENTER_Y - 200, true);
-            this.addChild(this._scoreLabel);
-            // Lives Label
-            this._livesLabel = new objects.Label("Lives: ", " 40px Consolas ", "#000000", config.Screen.CENTER_X + 250, config.Screen.CENTER_Y + 200, true);
+            // Add Points label
+            this._pointsLabel = new objects.Label(this._points.toString(), "14px Consolas", "#000000", 150, 50, false);
+            this._pointsLabel.textAlign = "right";
+            this.addChild(this._pointsLabel);
+            // Add Lives label
+            this._livesLabel = new objects.Label(this._lives.toString(), "14px Consolas", "#000000", 450, 50, false);
+            this._livesLabel.textAlign = "right";
             this.addChild(this._livesLabel);
             // added collision manager to the scene
             this._collision = new managers.Collision(this._player);
@@ -51,24 +49,79 @@ var scenes;
         };
         // PLAY Scene updates here
         Play.prototype.update = function () {
+            var _this = this;
             this._snow.update();
             this._pills.update();
             this._player.update();
-            //update each trees
-            for (var trees = 0; trees < 3; trees++) {
-                this._trees[trees].update();
+            // Check if the collision is with a Gas tank
+            if (this._collision.check(this._pills)) {
+                if (this._lives <= 1 || this._points >= 1000) {
+                    this.endOfGame();
+                }
+                else {
+                    // Play Points sound
+                    var audioFile = document.createElement("audio");
+                    audioFile.src = "../../Assets/audio/gastank_point.mp3";
+                    audioFile.play();
+                    // Increment points variable
+                    this._points++;
+                    // Update Points label
+                    this.removeChild(this._pointsLabel);
+                    this._pointsLabel = new objects.Label(this._points.toString(), "14px Consolas", "#000000", 150, 50, false);
+                    this._pointsLabel.textAlign = "right";
+                    this.addChild(this._pointsLabel);
+                }
             }
-            // this._collision.update(this._player, this._pills);
-            this._updateScore();
-            if (scoreboard.getLives() < 1) {
-                //  this._player.engineOff();
-                scene = config.Scene.END;
-                changeScene();
-            }
+            // Check if the collision is with a red trees
+            this._trees.forEach(function (trees) {
+                trees.update();
+                if (_this._collision.check(trees)) {
+                    if (_this._lives <= 1) {
+                        _this.endOfGame();
+                    }
+                    else {
+                        // Play trees crash sound
+                        var audioFile = document.createElement("audio");
+                        audioFile.src = "../../Assets/audio/car_crash.mp3";
+                        audioFile.play();
+                        // Decrement trees health variable
+                        _this._lives--;
+                        // Update Car Health label
+                        _this.removeChild(_this._livesLabel);
+                        _this._livesLabel = new objects.Label(_this._lives.toString(), "14px Consolas", "#000000", 450, 50, false);
+                        _this._livesLabel.textAlign = "right";
+                        _this.addChild(_this._livesLabel);
+                    }
+                }
+            });
         };
-        Play.prototype._updateScore = function () {
-            this._scoreLabel.text = "Score: " + scoreboard.getScore();
-            this._livesLabel.text = "Lives: " + scoreboard.getLives();
+        // PRIVATE METHODS +++++++++++++++++++++++++++
+        Play.prototype.endOfGame = function () {
+            // console.log("Game Over!");
+            this.removeChild(this._pointsLabel);
+            this.removeChild(this._livesLabel);
+            // add the gameover image
+            this._gameoverImage = new objects.Button("gameover", 0, 0, false);
+            this.addChild(this._gameoverImage);
+            // add the final score
+            this.removeChild(this._pointsLabel);
+            this._finalPointsLabel = new objects.Label(this._points.toString(), "40px Consolas", "#000000", 350, 285, false);
+            this._finalPointsLabel.textAlign = "right";
+            this.addChild(this._finalPointsLabel);
+            // add the restart pedal image
+            this._restartPedal = new objects.Button("restart", 500, 300, false);
+            this.addChild(this._restartPedal);
+            // restart button listner
+            this._restartPedal.on("click", this._restartPedalClick, this);
+        };
+        Play.prototype._restartPedalClick = function (event) {
+            // Play Car Rev (restart) sound
+            var audioFile = document.createElement("audio");
+            audioFile.src = "../../Assets/audio/car_rev.mp3";
+            audioFile.play();
+            // Reset to the PLAY Scene
+            scene = config.Scene.PLAY;
+            changeScene();
         };
         return Play;
     })(objects.Scene);
