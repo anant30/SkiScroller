@@ -5,8 +5,8 @@ module managers {
         private _player: objects.Player;
         private _pointsLabel: objects.Label;
         private _points = 0;
-        private _carHealthLabel: objects.Label;
-        private _carHealth = 100;
+        private _livesLabel: objects.Label;
+        private _lives = 100;
         
         // CONSTRUCTOR ++++++++++++++++
         constructor(player:objects.Player) {
@@ -43,6 +43,7 @@ module managers {
                 // check if it's a trees hit
                 if(object.name === "trees") {
                     console.log("trees hit!");
+                    return true;
                 }
             }
         }

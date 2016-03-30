@@ -32,11 +32,23 @@ module scenes {
             // Set trees Count, points, trees health
             this._carCount = 2;
             this._points = 0;
-            this._lives = 10;
+            this._lives = 100;
 
             // added snow to the scene
             this._snow = new objects.Snow();
             this.addChild(this._snow);
+            
+            // add the Points box the play scene
+            this._pointsLabel = new objects.Label("Score","28px Consolas",
+                "#000000",
+                100, 20, false);
+            this.addChild(this._pointsLabel);
+            
+            // add the Car Health box the play scene
+            this._livesLabel = new objects.Label("Energy left","23px Consolas",
+                "#000000",
+                420, 20, false);
+            this.addChild(this._livesLabel);
 
             // added enery pills to the scene
             this._pills = new objects.Pills();
@@ -151,31 +163,28 @@ module scenes {
             this.removeChild(this._livesLabel);
 
             // add the gameover image
-            this._gameoverImage = new objects.Button("gameover", 0, 0, false);
+            this._gameoverImage = new objects.Button("MenuBackground", 0, 0, false);
             this.addChild(this._gameoverImage);
 
             // add the final score
             this.removeChild(this._pointsLabel);
-            this._finalPointsLabel = new objects.Label(
+            this._finalPointsLabel = new objects.Label("Your Score is : "+
                 this._points.toString(),
                 "40px Consolas",
                 "#000000",
-                350, 285, false);
+                200, 50, false);
             this._finalPointsLabel.textAlign = "right";
             this.addChild(this._finalPointsLabel);
 
             // add the restart pedal image
-            this._restartPedal = new objects.Button("restart", 500, 300, false);
+            this._restartPedal = new objects.Button("RestartButton", 450, 300, false);
             this.addChild(this._restartPedal);
             // restart button listner
             this._restartPedal.on("click", this._restartPedalClick, this);
         }
 
         private _restartPedalClick(event: createjs.MouseEvent): void {
-            // Play Car Rev (restart) sound
-            var audioFile = document.createElement("audio");
-            audioFile.src = "../../Assets/audio/car_rev.mp3";
-            audioFile.play();
+           
 
             // Reset to the PLAY Scene
             scene = config.Scene.PLAY;

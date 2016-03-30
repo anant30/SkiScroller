@@ -5,7 +5,7 @@ var managers;
         // CONSTRUCTOR ++++++++++++++++
         function Collision(player) {
             this._points = 0;
-            this._carHealth = 100;
+            this._lives = 100;
             this._player = player;
         }
         Collision.prototype.distance = function (startPoint, endPoint) {
@@ -32,6 +32,7 @@ var managers;
                 // check if it's a trees hit
                 if (object.name === "trees") {
                     console.log("trees hit!");
+                    return true;
                 }
             }
         };
