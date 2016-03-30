@@ -112,7 +112,7 @@ var scenes;
             // add the final score
             this.removeChild(this._pointsLabel);
             this._finalPointsLabel = new objects.Label("Your Score is : " +
-                this._points.toString(), "40px Consolas", "#000000", 200, 50, false);
+                this._points.toString(), "40px Consolas", "#000000", 350, 50, false);
             this._finalPointsLabel.textAlign = "right";
             this.addChild(this._finalPointsLabel);
             // add the restart pedal image

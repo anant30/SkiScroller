@@ -172,7 +172,7 @@ module scenes {
                 this._points.toString(),
                 "40px Consolas",
                 "#000000",
-                200, 50, false);
+                350, 50, false);
             this._finalPointsLabel.textAlign = "right";
             this.addChild(this._finalPointsLabel);
 
