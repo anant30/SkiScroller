@@ -4,6 +4,7 @@ module scenes {
         //PRIVATE INSTANCE VARIABLES ++++++++++++
         private _endLabel: objects.Label;
         private _restartButton: objects.Button;
+        private _backgroundImage: createjs.Bitmap;
         
         // CONSTRUCTOR ++++++++++++++++++++++
         constructor() {
@@ -15,9 +16,14 @@ module scenes {
         
         // Start Method
         public start(): void {
+            
+            // adding background image 
+            this._backgroundImage = new createjs.Bitmap(assets.getResult("MenuBackground"));
+            this.addChild(this._backgroundImage);
+            
             //Add Menu Label
             this._endLabel = new objects.Label(
-                "END SCENE", "60px Consolas",
+                "Game Over", "60px Consolas",
                 "#000000",
                 config.Screen.CENTER_X, config.Screen.CENTER_Y, true);
             this.addChild(this._endLabel);

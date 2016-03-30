@@ -14,6 +14,9 @@ var menu: scenes.Menu;
 var play: scenes.Play;
 var end: scenes.End;
 
+// MANAGERS
+var scoreboard:managers.ScoreBoard
+
 var assetData:objects.Asset[] = [
     // Add your Assets here
     {id: "StartButton", src:"../../Assets/images/StartButton.png"},
@@ -51,6 +54,8 @@ function init(): void {
     
     // sets up our stats counting workflow
     setupStats(); 
+    
+    scoreboard = new managers.ScoreBoard();
     
     // set initial scene
     scene = config.Scene.MENU;

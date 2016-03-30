@@ -29,14 +29,14 @@ module managers {
               the other object is less than the minimum distance */
             if(this.distance(startPoint, endPoint) < minimumDistance) {
                 
-                // check if it's an island hit
-                if(object.name === "island") {
-                    console.log("island hit!");
+                // check if it's an pills hit
+                if(object.name === "pills") {
+                    console.log("Got energy pills!");
                 }
                 
-                // check if it's a cloud hit
-                if(object.name === "cloud") {
-                    console.log("cloud hit!");
+                // check if it's a trees hit
+                if(object.name === "trees") {
+                    console.log("trees hit!");
                 }
             }
         }

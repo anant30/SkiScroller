@@ -10,6 +10,8 @@ var scene;
 var menu;
 var play;
 var end;
+// MANAGERS
+var scoreboard;
 var assetData = [
     // Add your Assets here
     { id: "StartButton", src: "../../Assets/images/StartButton.png" },
@@ -40,6 +42,7 @@ function init() {
     createjs.Ticker.on("tick", gameLoop, this);
     // sets up our stats counting workflow
     setupStats();
+    scoreboard = new managers.ScoreBoard();
     // set initial scene
     scene = config.Scene.MENU;
     changeScene();
